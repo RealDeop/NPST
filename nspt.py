@@ -1,7 +1,7 @@
 def help():
     help_input = input("If You Want Help Type !help \n")
     if help_input == "!help":
-        print("To Use Numeral.py, make a script.txt file and then type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add a one to it. For example: line1 and word 1 # line1 and word 1 \n")
+        print("To Use Numeral.py, open the script.txt file and then type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add a one to it. For example: line1 and word 1 # line1 and word 1 \n")
         help()
 
 def hasum(script):
