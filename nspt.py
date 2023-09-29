@@ -1,9 +1,33 @@
-def help():
-    help_input = input("If You Want Help Type !help or !commands if not click enter \n")
-    if help_input == "!help":
-        print("To Use nspt.py, make a script.txt file and then type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add a one to it. For example: line1 and word 1 # line1 and word 1 \n")
-    elif help_input == "!commands":
-    	print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #stop (stops the code and saves the stuff it changed )\n #end ( is the same as # meaing it adds to the starting number a 1). \n #rest (rests the starting number to 1) ")
+import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
+from tkinter import filedialog
+import os
+
+def help_page():
+    help_text = "To use this application, create a script and paste on the script diaglog ."
+    help_text += "\nFor example: line1 and word 1 # line1 and word 1"
+    help_label.config(text=help_text)
+    show_page("help")
+    return help_text
+def commands_page():
+    commands_text = "Available commands:\n"
+    commands_text += "#10 (or any number) - copy the line before the # and repeat using the number."
+    commands_text += "\n#start <number> - change the start number."
+    commands_text += "\n#stop or #end - stop the code and save the changes."
+    commands_text += "\n#rest - reset the starting number to 1."
+    commands_label.config(text=commands_text)
+    show_page("commands")
+    return commands_text
+
+def show_page(page_name):
+    for page, label in pages.items():
+        if page == page_name:
+            label.pack()
+        else:
+            label.pack_forget()
+
+
 def hasum(script):
     lines = script.splitlines()
     result = ""
@@ -20,6 +44,7 @@ def hasum(script):
             result += line + "\n"
 
     return result
+    pass
 
 def replace_numbers(script):
     start_number = 1
@@ -53,21 +78,69 @@ def replace_numbers(script):
             start_number += 1
 
     return result, stop_reached
+    pass
 
-if __name__ == "__main__":
-    help()  # Call the help function
-
-    with open("script.txt", "r") as file:
-        script = file.read()
+def run_application():
+    script = script_entry.get("1.0", tk.END)
 
     script_with_hasum = hasum(script)
     replaced_script, stop_reached = replace_numbers(script_with_hasum)
 
-    with open("result.txt", "w") as file:
-        file.write(replaced_script)
+    result_text.config(state=tk.NORMAL)
+    result_text.delete("1.0", tk.END)
+    result_text.insert(tk.END, replaced_script)
+    result_text.config(state=tk.DISABLED)
 
-    print("Result saved in 'result.txt' file.")
+    result_saved_text = f"Result saved in 'result.txt' file."
 
     if stop_reached:
-        print("Stop action encountered. Stopping the script.")
-        exit(0)
+        stop_text = "Stop action encountered. Stopping the script."
+    else:
+        stop_text = ""
+
+    print(result_saved_text)
+    print(stop_text)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    root.title("Numeral GUI")
+    root.geometry("700x500")
+    # Create a frame to hold the pages
+    page_frame = ttk.Frame(root)
+    page_frame.pack(fill="both", expand=True)
+
+    # Script entry
+    script_label = ttk.Label(page_frame, text="Script:")
+    script_label.pack()
+    script_entry = tk.Text(page_frame, height=5, width=50)
+    script_entry.pack()
+
+    # Run button
+    run_button = ttk.Button(page_frame, text="Run Application", command=run_application)
+    run_button.pack(pady=10)
+
+    # Result display
+    result_label = ttk.Label(page_frame, text="Result:")
+    result_label.pack()
+    result_text = tk.Text(page_frame, height=10, width=50)
+    result_text.pack()
+    result_text.config(state=tk.DISABLED)
+
+    # Help page
+    help_label = ttk.Label(page_frame, text="")
+    help_button = ttk.Button(page_frame, text="Help", command=help_page)
+    help_button.pack(pady=10)
+
+    # Commands page
+    commands_label = ttk.Label(page_frame, text="")
+    commands_button = ttk.Button(page_frame, text="Commands", command=commands_page)
+    commands_button.pack(pady=10, padx=10)
+
+    # Define pages
+    pages = {"help": help_label, "commands": commands_label}
+    
+    root.mainloop()
+
+
+
+
