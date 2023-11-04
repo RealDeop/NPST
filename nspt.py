@@ -3,7 +3,8 @@ def help():
     if help_input == "!help":
         print("To Use nspt.py, make a script.txt file and then type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add a one to it. For example: line1 and word 1 # line1 and word 1 \n")
     elif help_input == "!commands":
-    	print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #stop (stops the code and saves the stuff it changed )\n #end ( is the same as # meaing it adds to the starting number a 1). \n #rest (rests the starting number to 1) ")
+        print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #set (sets the starting number to a specific value).\n #stop (stops the code and saves the stuff it changed )\n #end ( is the same as # meaning it adds to the starting number by 1). \n #rest (resets the starting number to 1) ")
+
 def hasum(script):
     lines = script.splitlines()
     result = ""
@@ -43,12 +44,26 @@ def replace_numbers(script):
                 print("Invalid #start command. Using default start number (1).")
             except IndexError:
                 print("Invalid #start command. Not adding an index will result in an error. Please change the script.")
+        elif line.startswith("#set"):
+            try:
+                start_number = int(line.split()[1])
+            except ValueError:
+                print("Invalid #set command. Value must be an integer.")
+            except IndexError:
+                print("Invalid #set command. Please provide an integer value.")
         else:
-            while "1" in line:
-                index = line.find("1")
-                result += line[:index] + str(start_number)
-                line = line[index+1:]
-
+            while "/int" in line:
+                int_index = line.find("/int")
+                if int_index != -1:
+                    try:
+                        # Extract the number following "/int"
+                        number = int(line[int_index + 4:].split()[0])
+                        if number == 1:
+                            line = line.replace("/int 1", str(start_number))
+                        else:
+                            line = line.replace("/int " + str(number), str(start_number))
+                    except ValueError:
+                        print("Invalid /int format. Using default value 1.")
             result += line + "\n"
             start_number += 1
 
