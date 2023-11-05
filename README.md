@@ -26,13 +26,13 @@ Hasum Function:
 
 Commands:
 
-    #/#end adds one to the start number. example: [ hi user1 #end hi user1] 
+    # / #end adds one to the specfied integer. example: [ hi user/int 1 #end hi user/int 1] 
     
-    #start sets the change number to what you specify after. example: [ #start 5 hi user1 #start 10 hi user1 ]
+    #start / #set sets the specfied integer to what you specify after. example: [ #start 5 hi user/int 1 #start 10 hi user/int 1 ]
     
-    #stop stops the script and saves what it changed. example use: [ hi user1 #end hi user1 #start 4 hi user1 #stop hi user 5 hi user 6 ]
+    #stop stops the script and saves what it changed. example use: [ hi user/int 1 #end hi user/int 1 #start 4 hi user/int 1 #stop hi user 5 hi user 6 ]
     
-    #rest resets the change number to 1. example use: [ hi1 user1 #end hi1 user1 #end #rest hi agian user1 #end hi agian user 1 ].
+    #rest sets the specfied integer to 1. example use: [ hi/int 1 user/int 1 #end hi/int 1 user/int 1 #end #rest hi agian user/int 1 #end hi agian user /int 1 ].
 
  Result Output:
         Finally, it saves the modified script to "result.txt".
