@@ -24,10 +24,6 @@ def values():
     # Check if the file exists
     if os.path.exists(file_path):
         print("Program Started.")
-    else:
-        file_found = True
-        filenotfound404()
-
 def filenotfound404():
     global prevuse, rwscrptf  # Declare global variables
     if file_found == True and prevuse == False:
