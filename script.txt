@@ -1,2 +1,4 @@
-TEST1 {remove everything by pressing ctrl + a  then space} 
-#4
+TEST/int 1 {remove everything by pressing ctrl + a  then space} 
+#1
+TEST/str a
+#1
