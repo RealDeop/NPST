@@ -11,9 +11,11 @@ def values():
     global prevuse, rwscrptf  # Declare global variables
     help_input = input("If you want help, type !help or !commands. If not, press Enter.\n")
     if help_input == "!help":
-        print("To use nspt.py, create a script.txt file and type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add one to it. For example: line1 and word 1 # line1 and word 1 \n")
+        print("To use nspt.py, create a script.txt file and type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add one to it. For example: line1 and word 1 # line1 and word 1 \nTip: Enter The commands.html to get more information if you think your stuck make a request on the github page
+\n")
     elif help_input == "!commands":
-        print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #set (sets the starting number to a specific value).\n #stop (stops the code and saves the changes) \n #end (is the same as #, meaning it adds to the starting number by 1). \n #rest (resets the starting number to 1) ")
+        print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #set (sets the starting number to a specific value).\n #stop (stops the code and saves the changes) \n #end (is the same as #, meaning it adds to the starting number by 1). \n #rest (resets the starting number to 1) \n Tip: Enter The commands.html to get more information if you think your stuck make a request on the github page
+")
     
     # Define the filename you want to search for
     filename = 'script.txt'
