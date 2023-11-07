@@ -34,6 +34,12 @@ Commands:
     
     #rest sets the specfied integer to 1. example use: [ hi/int 1 user/int 1 #end hi/int 1 user/int 1 #end #rest hi agian user/int 1 #end hi agian user /int 1 ].
 
+in line commands:
+
+    /int
+    Main Use Set the specfied value to a integer
+    /str
+    Main Use Set the specfied value to a letter  
  Result Output:
         Finally, it saves the modified script to "result.txt".
 
