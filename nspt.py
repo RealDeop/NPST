@@ -1,9 +1,54 @@
-def help():
-    help_input = input("If You Want Help Type !help or !commands if not click enter \n")
+import os
+
+# Declare global variables
+file_found = False
+current_directory = os.path.dirname(os.path.abspath(__file__))
+directory = os.path.dirname(os.path.abspath(__file__))
+prevuse = False
+rwscrptf = False
+
+def values():
+    global prevuse, rwscrptf  # Declare global variables
+    help_input = input("If you want help, type !help or !commands. If not, press Enter.\n")
     if help_input == "!help":
-        print("To Use nspt.py, make a script.txt file and then type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add a one to it. For example: line1 and word 1 # line1 and word 1 \n")
+        print("To use nspt.py, create a script.txt file and type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add one to it. For example: line1 and word 1 # line1 and word 1 \n")
     elif help_input == "!commands":
-        print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #set (sets the starting number to a specific value).\n #stop (stops the code and saves the stuff it changed )\n #end ( is the same as # meaning it adds to the starting number by 1). \n #rest (resets the starting number to 1) ")
+        print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #set (sets the starting number to a specific value).\n #stop (stops the code and saves the changes) \n #end (is the same as #, meaning it adds to the starting number by 1). \n #rest (resets the starting number to 1) ")
+    
+    # Define the filename you want to search for
+    filename = 'script.txt'
+
+    # Construct the full path to the file in the current directory
+    file_path = os.path.join(current_directory, filename)
+
+    # Check if the file exists
+    if os.path.exists(file_path):
+        print("Program Started.")
+    else:
+        file_found = True
+        filenotfound404()
+
+def filenotfound404():
+    global prevuse, rwscrptf  # Declare global variables
+    if file_found == True and prevuse == False:
+        err_f_404 = input("Error: script.txt not found. Please enter the directory or enter the script\n")
+    if file_found == True and prevuse == True:
+        err_f_404 = input("Whoa! It looks like you didn't type in the script. But thankfully, you can enter the directory or enter the script\n")
+    filename = 'script.txt'
+
+    # Construct the full path to the file
+    file_path = os.path.join(directory, filename)
+    
+    # Check if the file exists
+    if os.path.exists(file_path):
+        print("File found. Program Started")
+    else:
+        contdir = input("Please confirm that you typed in your script.txt file but not your file directory. If not, type 'n'. If yes, type 'y' \n")  # contdir means confirm not a dir
+        if contdir.lower() == "y":
+            rwscrptf = True  # The user is now using raw script file mode, which means they typed in the script contents 
+        else:
+            prevuse = True  # Inform the file not found 404 function that the user used it previously wrong and is now in need to correct it to use nspt 
+            filenotfound404()  # Recall the file not found 404 function
 
 def hasum(script):
     lines = script.splitlines()
@@ -64,17 +109,41 @@ def replace_numbers(script):
                             line = line.replace("/int " + str(number), str(start_number))
                     except ValueError:
                         print("Invalid /int format. Using default value 1.")
+            
+            # Handle /str command
+            letters = 'abcdefghijklmnopqrstuvwxyz'
+
+            if start_number < 26:
+                specified_order = start_number
+            if start_number > 25:
+                times_over_25 = math.ceil(start_number / 26)  # Calculate how many times it's over 26
+                specified_order = start_number - 26 * (times_over_25 - 1)
+            while "/str" in line:
+                str_index = line.find("/str")
+                strr = str(line[str_index + 4:].split()[0])
+                for letter in letters:
+                    if letter.lower() == strr:
+                        strr = letter.lower()
+                        upper = False
+                    elif letter.upper() == strr:
+                        strr = letter.upper()
+                        upper = True
+                    line = line.replace("/str " + str(strr), str(letters[(specified_order - 1)]))
+                
+
             result += line + "\n"
             start_number += 1
 
     return result, stop_reached
 
 if __name__ == "__main__":
-    help()  # Call the help function
 
-    with open("script.txt", "r") as file:
-        script = file.read()
-
+    values()  # Call the help function
+    if rwscrptf == False:
+        with open("script.txt", "r") as file:
+            script = file.read()
+    if rwscrptf == True:
+        script = err_f_404
     script_with_hasum = hasum(script)
     replaced_script, stop_reached = replace_numbers(script_with_hasum)
 
