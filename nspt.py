@@ -1,5 +1,5 @@
 import os
-
+import math
 # Declare global variables
 file_found = False
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -11,11 +11,9 @@ def values():
     global prevuse, rwscrptf  # Declare global variables
     help_input = input("If you want help, type !help or !commands. If not, press Enter.\n")
     if help_input == "!help":
-        print("To use nspt.py, create a script.txt file and type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add one to it. For example: line1 and word 1 # line1 and word 1 \nTip: Enter The commands.html to get more information if you think your stuck make a request on the github page
-\n")
+        print("To use nspt.py, create a script.txt file and type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add one to it. For example: line1 and word 1 # line1 and word 1 \n")
     elif help_input == "!commands":
-        print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #set (sets the starting number to a specific value).\n #stop (stops the code and saves the changes) \n #end (is the same as #, meaning it adds to the starting number by 1). \n #rest (resets the starting number to 1) \n Tip: Enter The commands.html to get more information if you think your stuck make a request on the github page
-")
+        print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #set (sets the starting number to a specific value).\n #stop (stops the code and saves the changes) \n #end (is the same as #, meaning it adds to the starting number by 1). \n #rest (resets the starting number to 1) ")
     
     # Define the filename you want to search for
     filename = 'script.txt'
@@ -26,6 +24,7 @@ def values():
     # Check if the file exists
     if os.path.exists(file_path):
         print("Program Started.")
+    
 def filenotfound404():
     global prevuse, rwscrptf  # Declare global variables
     if file_found == True and prevuse == False:
@@ -127,7 +126,17 @@ def replace_numbers(script):
                         strr = letter.upper()
                         upper = True
                     line = line.replace("/str " + str(strr), str(letters[(specified_order - 1)]))
+            while "/minus" in line:
+                int_index = line.find("/minus")
                 
+                try:
+                    # Extract the number following "/int"
+                    number = int(line[int_index + 4:].split()[0])
+                    minus_result = start_number - number
+                    line = line.replace("/minus " + str(number), str(minus_result))
+                except ValueError:
+                    print("Invalid /minus format. at line"+line)
+                    break
 
             result += line + "\n"
             start_number += 1
