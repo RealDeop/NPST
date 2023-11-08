@@ -3,18 +3,20 @@ from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
 import os
+import math
 
 def help_page():
     help_text = "To use this application, create a script and paste on the script diaglog ."
-    help_text += "\nFor example: line1 and word 1 # line1 and word 1"
+    help_text += "\nFor example: line/int 1 and word/int 1 \n#\n line/int 1 and word/int 1"
     help_label.config(text=help_text)
     show_page("help")
     return help_text
 def commands_page():
     commands_text = "Available commands:\n"
+    commands_text = "# or #end - Change the specfied by one \n"
     commands_text += "#10 (or any number) - copy the line before the # and repeat using the number."
-    commands_text += "\n#start <number> - change the start number."
-    commands_text += "\n#stop or #end - stop the code and save the changes."
+    commands_text += "\n#start or #set - <number> - change the start number."
+    commands_text += "\n#stop - stop the code and save the changes."
     commands_text += "\n#rest - reset the starting number to 1."
     commands_label.config(text=commands_text)
     show_page("commands")
@@ -68,11 +70,46 @@ def replace_numbers(script):
                 print("Invalid #start command. Using default start number (1).")
             except IndexError:
                 print("Invalid #start command. Not adding an index will result in an error. Please change the script.")
+        elif line.startswith("#set"):
+            try:
+                start_number = int(line.split()[1])
+            except ValueError:
+                print("Invalid #set command. Value must be an integer.")
+            except IndexError:
+                print("Invalid #set command. Please provide an integer value.")
         else:
-            while "1" in line:
-                index = line.find("1")
-                result += line[:index] + str(start_number)
-                line = line[index+1:]
+            while "/int" in line:
+                int_index = line.find("/int")
+                if int_index != -1:
+                    try:
+                        # Extract the number following "/int"
+                        number = int(line[int_index + 4:].split()[0])
+                        if number == 1:
+                            line = line.replace("/int 1", str(start_number))
+                        else:
+                            line = line.replace("/int " + str(number), str(start_number))
+                    except ValueError:
+                        print("Invalid /int format. Using default value 1.")
+            
+            # Handle /str command
+            letters = 'abcdefghijklmnopqrstuvwxyz'
+
+            if start_number < 26:
+                specified_order = start_number
+            if start_number > 25:
+                times_over_25 = math.ceil(start_number / 26)  # Calculate how many times it's over 26
+                specified_order = start_number - 26 * (times_over_25 - 1)
+            while "/str" in line:
+                str_index = line.find("/str")
+                strr = str(line[str_index + 4:].split()[0])
+                for letter in letters:
+                    if letter.lower() == strr:
+                        strr = letter.lower()
+                        upper = False
+                    elif letter.upper() == strr:
+                        strr = letter.upper()
+                        upper = True
+                    line = line.replace("/str " + str(strr), str(letters[(specified_order - 1)]))
 
             result += line + "\n"
             start_number += 1
