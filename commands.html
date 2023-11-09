@@ -1,12 +1,47 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>script commands</title>
-  </head>
-  <body>
+    <style>
+        body {
+            transition: background-color 0.5s, color 0.5s;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+        }
+
+        #toggleButton {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        #toggleButton.dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toggleButton" onclick="toggleMode()">Toggle Mode</div>
+
     <h1>Commands</h1>
     <h4>#end</h4>
     <br>
-    <h6>Main Use Change the specfied int or str to the next value </h6>
+    <h6>Main Use Change the specified int or str to the next value </h6>
     <br>
     <h6>Example Use And Outputs example: [ hi user/int 1 <br>
       #end <br>
@@ -17,7 +52,7 @@
       <br>
     hi userb
     </h6>
-<br>
+    <br>
     <h4>#10( 10 can be any integer)</h4>
     <br>
     <h6>Repeat The line Before the Hashtag amount being the number after the hashtag</h6>
@@ -36,7 +71,7 @@
     <br>
     <h4>#start</h4>
 <br>
-    <h6>Main Use Set the prevalue for what to change to anything excpet 1 Mainly Used At Start of the script.txt file  </h6>
+    <h6>Main Use Set the prevalue for what to change to anything except 1 Mainly Used At Start of the script.txt file  </h6>
     <br>    
     <h6>Example Use And Outputs example: [ #start 5 <br>
           hi user/int 1 <br>
@@ -82,7 +117,7 @@
     </h6> <br>
     <h4>#rest</h4>
     <br>
-    <h6>Rest the specfied value to the first one</h6>
+    <h6>Rest the specified value to the first one</h6>
     <br>
     <h6>Example Use And output example[ #set
       10 hi/int 1 user/int 1 <br>
@@ -90,22 +125,22 @@
       hi/str a user/str a<br> 
       #end<br>
       #rest<br>
-      hi agian user/str a<br> 
+      hi again user/str a<br> 
       #end<br>
-      hi agian user /int 1 ]</h6>
+      hi again user /int 1 ]</h6>
     <br>
     <h6>output:
     hi10 user10 <br>
     hik userk <br>
-    hi agian usera<br> 
-    hi agian user 2<br>
+    hi again usera<br> 
+    hi again user 2<br>
 </h6>
 <br>
 <br>
-    <h1>Specfiction in line commands</h1>
+    <h1>Specification in line commands</h1>
     <h4>/int</h4>
 <br>
-    <h6>Main Use Set the specfied value to a integer </h6>
+    <h6>Main Use Set the specified value to an integer </h6>
     <br>
     <h6>example Use
     hi<br>
@@ -120,7 +155,7 @@
 <br>
     <h4>/str</h4>
 <br>
-    <h6>Main Use Set the specfied value to a letter </h6>
+    <h6>Main Use Set the specified value to a letter </h6>
     <br>
     <h6>example use
     TEST/str a<br>
@@ -131,5 +166,14 @@
     TESTa<br>
     TESTb<br>
     </h6>
-  </body>
+    
+
+    <script>
+        function toggleMode() {
+            document.body.classList.toggle('dark-mode');
+            document.getElementById('toggleButton').classList.toggle('dark-mode');
+        }
+    </script>
+
+</body>
 </html>
