@@ -37,9 +37,16 @@ Commands:
 in line commands:
 
     /int
-    Main Use Set the specfied value to a integer
+   Main Use Set the specfied value to a integer
+    
     /str
-    Main Use Set the specfied value to a letter  
+   Main Use Set the specfied value to a letter  
+
+    /rdi
+   Main Use generate a random integer using /rdi although /rdi is a little bugged
+
+    /rds
+   Main Use generate a random string using /rds
  Result Output:
         Finally, it saves the modified script to "result.txt".
 
