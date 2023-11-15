@@ -1,20 +1,60 @@
 import os
 import math
+import time
+import random
+import string
 # Declare global variables
 file_found = False
 current_directory = os.path.dirname(os.path.abspath(__file__))
 directory = os.path.dirname(os.path.abspath(__file__))
 prevuse = False
 rwscrptf = False
+wait = time.sleep
+length = 0
+count = 0
+global set1s
+global set2s
+global set3s
+set1s = False
+set2s = True
+set3s = True
+def generate_random_string(length):
+    letters = string.ascii_letters
+    return ''.join(random.choice(letters) for _ in range(length))
+def generate_random_numbers(count):
+    min_value = 0
+    max_value = 9
+    return [random.randint(min_value, max_value) for _ in range(count)]
 
 def values():
     global prevuse, rwscrptf  # Declare global variables
     help_input = input("If you want help, type !help or !commands. If not, press Enter.\n")
     if help_input == "!help":
-        print("To use nspt.py, create a script.txt file and type anything you want. Replace the number you want to change numerically with 1. To make the script change the number, put a # when you want to change the number and add one to it. For example: line1 and word 1 # line1 and word 1 \n")
+        print("Facing Issues With The App Contact me at https://github.com/RealDeop/NPST/issues/new\n")
+        eots1()
     elif help_input == "!commands":
         print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #set (sets the starting number to a specific value).\n #stop (stops the code and saves the changes) \n #end (is the same as #, meaning it adds to the starting number by 1). \n #rest (resets the starting number to 1) ")
-    
+        eots1()
+    #elif help_input == "!settings":
+    #    print("To Change A setting first select a setting number")
+    #    set1 = print("| 1 | Quick Shut Down | "+set1s+" |" )
+    #    set2 = print("| 2 | Quick Start | "+set2s+" |" )
+    #   set3 = print("| 3 | Feedback | "+set3s+" |" )
+    #    setnum = input()
+    #    if setnum == 1:
+    #        print("You Have Choosen setting"+setnum+"it is set To "+set1s+" Change It ? If Yes Type True or False")
+    #        tf = input()
+    #        set1s = tf
+     #   if setnum == 2:
+      #      print("You Have Choosen setting"+setnum+"it is set To "+set2s+" Change It ? If Yes Type True or False")
+       #     tf2 = input()
+        #    set2s = tf2
+       # if setnum == 3:
+        #    print("You Have Choosen setting"+setsnum+"it is set To "+set3s+" Change It ? If Yes Type True or False")
+         #   tf3 = input()
+          #  set3s = tf3
+            
+            
     # Define the filename you want to search for
     filename = 'script.txt'
 
@@ -109,56 +149,103 @@ def replace_numbers(script):
             
             # Handle /str command
             letters = 'abcdefghijklmnopqrstuvwxyz'
-
+            big_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            mulit_letter = True
+            strr = ""
             if start_number < 26:
                 specified_order = start_number
             if start_number > 25:
                 times_over_25 = math.ceil(start_number / 26)  # Calculate how many times it's over 26
                 specified_order = start_number - 26 * (times_over_25 - 1)
             while "/str" in line:
-                str_index = line.find("/str")
-                strr = str(line[str_index + 4:].split()[0])
-                for letter in letters:
-                    if letter.lower() == strr:
-                        strr = letter.lower()
-                        upper = False
-                    elif letter.upper() == strr:
-                        strr = letter.upper()
-                        upper = True
-                    line = line.replace("/str " + str(strr), str(letters[(specified_order - 1)]))
-            while "/minus" in line:
-                int_index = line.find("/minus")
-                
                 try:
-                    # Extract the number following "/int"
-                    number = int(line[int_index + 4:].split()[0])
-                    minus_result = start_number - number
-                    line = line.replace("/minus " + str(number), str(minus_result))
-                except ValueError:
-                    print("Invalid /minus format. at line"+line)
+                    str_index = line.find("/str")
+                    mulitletter_check = str(line[str_index + 4:].split()[0])
+                    strr = str(line[str_index + 4:].split()[0])
+                    for letter in letters:
+                        if letter.lower() == strr:
+                            strr = letter.lower()
+                            upper = False
+                            line = line.replace("/str " + str(strr), str(letters[(specified_order - 1)]))
+                        elif letter.upper() == strr:
+                            strr = letter.upper()
+                            upper = True
+                            #handle mulitlettered commands upto 4
+                            if muilt_letter == True:
+                                line = line.replace("/str " + str(strr), str(big_letters[(specified_order - 1)]+big_letters[(specified_order)]))
+                            line = line.replace("/str " + str(strr), str(big_letters[(specified_order - 1)]))
+                except IndexError:
+                    print("Invaild /str Please a tempory letter and try agian.")
                     break
+                except:
+                    print("Unkown /str Error Please Contact nspt Github")
+                    break
+            # Handle /rds command
+            while "/rds" in line:
+                    rds_index = line.find("/rds")
+                    strrr = str(line[rds_index + 5:].split()[0])  # Fixing the index for /rds
+                    random_str = generate_random_string(length=int(strrr))
+                    line = line.replace(f"/rds {strrr}", str(random_str))
+        # Handle /rdi command
+            while "/rdi" in line:
+                        rdi_index = line.find("/rdi")
+                        strri = str(line[rdi_index + 5:].split()[0])  # Fixing the index for /rdi
+                        random_int = generate_random_numbers(count=int(strri))
+                        line = line.replace(f"/rdi {strri}", str(random_int))
 
             result += line + "\n"
             start_number += 1
 
     return result, stop_reached
 
-if __name__ == "__main__":
+def main():
+    if __name__ == "__main__":
 
-    values()  # Call the help function
-    if rwscrptf == False:
-        with open("script.txt", "r") as file:
-            script = file.read()
-    if rwscrptf == True:
-        script = err_f_404
-    script_with_hasum = hasum(script)
-    replaced_script, stop_reached = replace_numbers(script_with_hasum)
+        values()  # Call the help function
+        if rwscrptf == False:
+            with open("script.txt", "r") as file:
+                    script = file.read()
+        if rwscrptf == True:
+            script = err_f_404
+        script_with_hasum = hasum(script)
+        replaced_script, stop_reached = replace_numbers(script_with_hasum)
 
-    with open("result.txt", "w") as file:
-        file.write(replaced_script)
+        with open("result.txt", "w") as file:
+            file.write(replaced_script)
 
-    print("Result saved in 'result.txt' file.")
-
-    if stop_reached:
-        print("Stop action encountered. Stopping the script.")
+        print("Result saved in 'result.txt' file.")
+        eots1()
+        if stop_reached:
+            print("Stop action encountered. Stopping the script.")
+            exit(0)
+def eots1():
+    print("nspt-terminal tb-0")
+    eots = input("Quit ? y | n  User Action:| ") # eots means end of terminal script watiting for user guidince
+    if eots.lower() == "y":
+        print("program shutting down in \n 3")
+        wait(1)
+        print("program shutting down in \n 2")
+        wait(1)
+        print("program shutting down in \n 1")
+        wait(1)
         exit(0)
+    elif eots.lower() == "n":
+        print("program shutting down in \n 1")
+        wait(1)
+        print("program starting")
+        wait(1)
+        main()
+    elif eots == "":
+        print("program shutting down in \n 3")
+        wait(1)
+        print("program shutting down in \n 2")
+        wait(1)
+        print("program shutting down in \n 1")
+        wait(1)
+        exit()
+
+    else:
+        print("Unkown Input Please Enter in y or n ")
+        eots1()
+main()
+eots1()
