@@ -47,6 +47,7 @@ in line commands:
 
     /rds
    Main Use generate a random string using /rds
+   For more info check the commands.html page
  Result Output:
         Finally, it saves the modified script to "result.txt".
 
