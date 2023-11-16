@@ -24,7 +24,8 @@ def generate_random_string(length):
 def generate_random_numbers(count):
     min_value = 0
     max_value = 9
-    return [random.randint(min_value, max_value) for _ in range(count)]
+    random_numbers = [random.randint(min_value, max_value) for _ in range(count)]
+    return ''.join(map(str, random_numbers))
 
 def values():
     global prevuse, rwscrptf  # Declare global variables
@@ -150,6 +151,7 @@ def replace_numbers(script):
             # Handle /str command
             letters = 'abcdefghijklmnopqrstuvwxyz'
             big_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            symbols = '"~`!@#$%^&*()-_=+[]{}\|:;"<,.>/?'
             mulit_letter = True
             strr = ""
             if start_number < 26:
@@ -167,15 +169,12 @@ def replace_numbers(script):
                             strr = letter.lower()
                             upper = False
                             line = line.replace("/str " + str(strr), str(letters[(specified_order - 1)]))
-                        elif letter.upper() == strr:
-                            strr = letter.upper()
-                            upper = True
-                            #handle mulitlettered commands upto 4
-                            if muilt_letter == True:
-                                line = line.replace("/str " + str(strr), str(big_letters[(specified_order - 1)]+big_letters[(specified_order)]))
-                            line = line.replace("/str " + str(strr), str(big_letters[(specified_order - 1)]))
+                    for letter in symbols:
+                            strr = letter.lower()
+                            upper = False
+                            line = line.replace("/str " + str(strr), str(symbols[(specified_order - 1)]))
                 except IndexError:
-                    print("Invaild /str Please a tempory letter and try agian.")
+                    print("Invaild /str Please set a tempory letter and try agian.")
                     break
                 except:
                     print("Unkown /str Error Please Contact nspt Github")
@@ -192,7 +191,30 @@ def replace_numbers(script):
                         strri = str(line[rdi_index + 5:].split()[0])  # Fixing the index for /rdi
                         random_int = generate_random_numbers(count=int(strri))
                         line = line.replace(f"/rdi {strri}", str(random_int))
-
+            while "/minus" in line:
+                minus_index = line.find("/minus")
+                minu = int(line[minus_index + 7:].split()[0])  # Fixing the index for /rdi
+                equal = (start_number) - int(minu)
+                start_number = equal
+                line = line.replace(f"/minus {minu}", str(equal))
+            while "/plus" in line:
+                plus_index = line.find("/plus")
+                plu = int(line[plus_index + 6:].split()[0])  # Fixing the index for /rdi
+                equals = (start_number-1) + int(plu) #startnumber + plu which is the number the user chooses
+                start_number = equals
+                line = line.replace(f"/plus {plu}", str(equals))
+            while "/*" in line:
+                muil_index = line.find("/*")
+                mui = int(line[muil_index + 3:].split()[0])  # Fixing the index for /rdi
+                eequals = (start_number-1) * int(mui) #startnumber * plu which is the number the user chooses
+                start_number = eequals
+                line = line.replace(f"/* {mui}", str(eequals))
+            while "/d" in line:
+                d_index = line.find("/d")
+                d = int(line[d_index + 3:].split()[0])  # Fixing the index for /rdi
+                eequal = (start_number-1) / int(d) #startnumber * plu which is the number the user chooses
+                start_number = eequal
+                line = line.replace(f"/d {d}", str(eequal))
             result += line + "\n"
             start_number += 1
 
@@ -230,16 +252,12 @@ def eots1():
         wait(1)
         exit(0)
     elif eots.lower() == "n":
-        print("program shutting down in \n 1")
+        print("program restarting down in \n 1")
         wait(1)
-        print("program starting")
+        print("Program starting")
         wait(1)
         main()
     elif eots == "":
-        print("program shutting down in \n 3")
-        wait(1)
-        print("program shutting down in \n 2")
-        wait(1)
         print("program shutting down in \n 1")
         wait(1)
         exit()
