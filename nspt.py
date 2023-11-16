@@ -200,19 +200,19 @@ def replace_numbers(script):
             while "/plus" in line:
                 plus_index = line.find("/plus")
                 plu = int(line[plus_index + 6:].split()[0])  # Fixing the index for /rdi
-                equals = (start_number-1) + int(plu) #startnumber + plu which is the number the user chooses
+                equals = (start_number) + int(plu) #startnumber + plu which is the number the user chooses
                 start_number = equals
                 line = line.replace(f"/plus {plu}", str(equals))
             while "/*" in line:
                 muil_index = line.find("/*")
                 mui = int(line[muil_index + 3:].split()[0])  # Fixing the index for /rdi
-                eequals = (start_number-1) * int(mui) #startnumber * plu which is the number the user chooses
+                eequals = (start_number) * int(mui) #startnumber * plu which is the number the user chooses
                 start_number = eequals
                 line = line.replace(f"/* {mui}", str(eequals))
             while "/d" in line:
                 d_index = line.find("/d")
                 d = int(line[d_index + 3:].split()[0])  # Fixing the index for /rdi
-                eequal = (start_number-1) / int(d) #startnumber * plu which is the number the user chooses
+                eequal = (start_number) / int(d) #startnumber * plu which is the number the user chooses
                 start_number = eequal
                 line = line.replace(f"/d {d}", str(eequal))
             result += line + "\n"
