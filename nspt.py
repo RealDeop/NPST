@@ -1,3 +1,4 @@
+print("Copyright (c) 2023 RealDeop")
 import os
 import math
 import time
@@ -18,6 +19,9 @@ global set3s
 set1s = False
 set2s = True
 set3s = True
+#set the platform to put in the vars
+
+
 def generate_random_string(length):
     letters = string.ascii_letters
     return ''.join(random.choice(letters) for _ in range(length))
@@ -104,12 +108,13 @@ def hasum(script):
             result += line + "\n"
 
     return result
+    pass
 
 def replace_numbers(script):
     start_number = 1
     result = ""
     stop_reached = False
-
+    variables = {}  # Dictionary to store variables
     for line in script.splitlines():
         if line.strip() == "#" or line.strip() == "#end":
             start_number += 1
@@ -134,6 +139,32 @@ def replace_numbers(script):
                 print("Invalid #set command. Value must be an integer.")
             except IndexError:
                 print("Invalid #set command. Please provide an integer value.")
+        elif line.startswith("#var"):
+            try:
+                var_name = str(line.split()[1])
+                temp_varid = generate_random_numbers(count=15)
+                variables[var_name] = temp_varid
+            except ValueError:
+                print("Invalid #var command. Value must be a str.")
+            except IndexError:
+                print("Invalid #var command. Please provide a var name value.")
+        elif line.startswith("/var"):
+            try:
+                var_command = line.split()
+                if len(var_command) == 2:  # Retrieving the variable
+                    var_name = var_command[1]
+                    if var_name in variables:
+                        result += str(variables[var_name]) + "\n"
+                    else:
+                        print(f"Error: Variable {var_name} not found.")
+                elif len(var_command) == 3:  # Assigning a value to the variable
+                    var_name = var_command[1]
+                    var_value = var_command[2]
+                    variables[var_name] = var_value
+                else:
+                    print("Invalid /var command.")
+            except IndexError:
+                print("Invalid /var command.")
         else:
             while "/int" in line:
                 int_index = line.find("/int")
@@ -267,3 +298,4 @@ def eots1():
         eots1()
 main()
 eots1()
+
