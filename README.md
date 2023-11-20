@@ -62,6 +62,8 @@ Commands:
     
     #rest sets the specfied integer to 1. example use: [ hi/int 1 user/int 1 #end hi/int 1 user/int 1 #end #rest hi agian user/int 1 #end hi agian user /int 1 ].
 
+    #var makes a variable named to the named the user chooses [#var i_love_opensource]
+
 in line commands:
 
     /int
@@ -76,10 +78,16 @@ in line commands:
     /rds
    Main Use generate a random string using /rds
    For more info check the commands.html page
+
+  
+    /var      
+   it calls The variable assigend using #var or modifes its values 
  Result Output:
         Finally, it saves the modified script to "result.txt".
-
+        
+    
 needed lib:
-
+        if you wish to use the gui version download:
+     
         pip install tkinter
         
