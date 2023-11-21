@@ -64,6 +64,9 @@ Commands:
 
     #var makes a variable named to the named the user chooses [#var i_love_opensource]
 
+    /repeat and /repeat  -s repeat a big chunk of most of the time more then one line 
+    /repeat -s just specfies the place where /repeat may start repeating 
+  
 in line commands:
 
     /int
@@ -87,7 +90,10 @@ in line commands:
         
     
 needed lib:
-        if you wish to use the gui version download:
+
+        pip install subprocess
+        
+  if you wish to use the gui version download:
      
         pip install tkinter
         
