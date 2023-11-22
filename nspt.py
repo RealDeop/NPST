@@ -231,7 +231,8 @@ def replace_numbers(script):
     start_number = 1
     result = ""
     stop_reached = False
-    script = ""
+    with open('script.txt', 'r') as file:
+        script = file.read()
     variables = {}  # Dictionary to store variables
     for line in script.splitlines():
         if line.strip() == "#" or line.strip() == "#end":
