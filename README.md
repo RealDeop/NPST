@@ -33,25 +33,21 @@ he code is a Python script designed to process a script stored in a file named "
 
 Script Representation: The script is represented as text within "script.txt". Each line in this script is processed individually.
 
-Numerical Replacement: The script is scanned for the numeral '1', and each occurrence is replaced with an incremented number starting from 1.
+Numerical Replacement: The script is scanned for the command '/int (any number)', and each occurrence is replaced with an incremented number starting from 1.
 
-Repetition Feature: Lines in the script can be repeated a certain number of times. This is achieved by using the # symbol followed by a number indicating how many times the preceding line should be repeated.
+Single Line Repetition Feature: every line in the script can be repeated a certain number of times. This is achieved by using the # symbol followed by a number indicating how many times the preceding line should be repeated.
+
+Muilt Line Repetition Feature: Lines in the script can be repeated a certain number of times. This is achieved by using the /repeat -s to state the cloing lines followed by in the end of the reptiton lines /repeat followed by a number indicating how many times the preceding lines should be repeated.
 
  Processing Logic:
  The code reads the script from "script.txt".
- It processes the script line by line, replacing '1' with an incremented number and handling repetition as specified by the # symbol.
+ It processes the script line by line, replacing '/int (any number)' with an incremented starting from 1 and handling repetition as specified by the # symbol. and/or /repeat
  The modified script is saved to a file named "result.txt".
 
  User Interaction:
         The code provides a simple interaction where the user can request help by typing !help.
         When help is requested, instructions on how to use the script processing tool are displayed.
-    
-
-
-
-Hasum Function:
-        The hasum function processes the script to handle the repetition feature specified by #.
-        It repeats the lines preceding # as many times as indicated by the number following #.
+   
 
 Commands:
 
@@ -65,8 +61,7 @@ Commands:
 
     #var makes a variable named to the named the user chooses [#var i_love_opensource]
 
-    /repeat and /repeat  -s repeat a big chunk of most of the time more then one line 
-    /repeat -s just specfies the place where /repeat may start repeating 
+
   
 in line commands:
 
@@ -88,7 +83,12 @@ in line commands:
    it calls The variable assigend using #var or modifes its values 
  Result Output:
         Finally, it saves the modified script to "result.txt".
-        
+
+     /repeat and /repeat  -s 
+   repeat a big  ol`chunk most of the time more then one line 
+     
+     /repeat -s 
+   just specfies the place where /repeat may start repeating 
     
 needed lib:
 
