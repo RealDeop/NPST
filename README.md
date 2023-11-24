@@ -1,6 +1,7 @@
-Before Using Npst/nspt
+A Note From The Developer: i Will be Taking a break untill December third and in dec.3 update alpha 1.6 will be realeased 
+Before Using Npst/nspt 
 Please Read LICENSE and the mit license Here is a shortend Down version of it i repeat PLEASE READ THE LICENSE FILE AND THE  MIT LICENSE:
-MIT License
+MIT License 
 
 Copyright (c) 2023 RealDeop
 
