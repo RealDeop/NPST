@@ -29,7 +29,7 @@ SOFTWARE.
 
 NPST
 NSPT (Numeral Script Processing Tool)
-he code is a Python script designed to process a script stored in a file named "script.txt". The script allows for the numerical replacement of specific numbers within the script and supports a repetition feature for certain lines indicated by a special syntax.
+the code is a Python script designed to process a script stored in a file named "script.txt". The script allows for the numerical replacement of specific numbers within the script and supports a repetition feature for certain lines indicated by a special syntax.
 
 Script Representation: The script is represented as text within "script.txt". Each line in this script is processed individually.
 
@@ -51,17 +51,36 @@ Muilt Line Repetition Feature: Lines in the script can be repeated a certain num
 
 Commands:
 
-    # / #end adds one to the specfied integer. example: [ hi user/int 1 #end hi user/int 1] 
+    # / #end
+   adds one to the specfied integer. example: [
+   
+    hi user/int 1 #end hi user/int 1
+   ] 
     
-    #start / #set sets the specfied integer to what you specify after. example: [ #start 5 hi user/int 1 #start 10 hi user/int 1 ]
+    #start / #set
+   sets the specfied integer to what you specify after. example: [
     
-    #stop stops the script and saves what it changed. example use: [ hi user/int 1 #end hi user/int 1 #start 4 hi user/int 1 #stop hi user 5 hi user 6 ]
+    #start 5 hi user/int 1 #start 10 hi user/int 1 
+   ]
     
-    #rest sets the specfied integer to 1. example use: [ hi/int 1 user/int 1 #end hi/int 1 user/int 1 #end #rest hi agian user/int 1 #end hi agian user /int 1 ].
+    #stop
+   stops the script and saves what it changed. example use: [
+   
+    hi user/int 1 #end hi user/int 1 #start 4 hi user/int 1 #stop hi user 5 hi user 6 
+   ]
+    
+    #rest
+   sets the specfied integer to 1. example use: [ 
+    
+    hi/int 1 user/int 1 #end hi/int 1 user/int 1 #end #rest hi agian user/int 1 #end hi agian user /int 1 
+    ].
 
-    #var makes a variable named to the named the user chooses [#var i_love_opensource]
-
-
+    #var  
+   makes a variable named to the named the user chooses 
+   [
+  
+    #var by-RealDeop
+   ]
   
 in line commands:
 
@@ -72,7 +91,7 @@ in line commands:
    Main Use Set the specfied value to a letter  
 
     /rdi
-   Main Use generate a random integer using /rdi although /rdi is a little bugged
+   Main Use generate a random integer using /rdi
 
     /rds
    Main Use generate a random string using /rds
