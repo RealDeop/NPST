@@ -5,7 +5,6 @@ import time
 import random
 import string
 import subprocess
-
 # Declare global variables
 file_found = False
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -18,14 +17,11 @@ count = 0
 global set1s
 global set2s
 global set3s
-set1s = "False"
-set2s = "True"
-set3s = "True"
-global quick_start, quick_shutdown, feedback
+set1s = False
+set2s = True
+set3s = True
 #set the platform to put in the vars
-global qucik_start,quick_shutdown
-quick_start = "true"
-quick_shutdown = "false"
+
 
 def generate_random_string(length):
     letters = string.ascii_letters
@@ -35,35 +31,9 @@ def generate_random_numbers(count):
     max_value = 9
     random_numbers = [random.randint(min_value, max_value) for _ in range(count)]
     return ''.join(map(str, random_numbers))
-global help_input
-help_inputs = ""
-def rread_nmf():
-    global set1s
-    global set2s
-    global set3s
-    with open("settings.nmf", "r") as file:
-        settings = file.read()
-        lines = settings.splitlines()
-        for line in lines:
-            if line.startswith("!"):
-                set1s = "False"
-            elif line.startswith("@"):
-                set1s = "True"
-            if line.startswith("#"):
-                set2s = "False"
-            elif line.startswith("$"):
-                set2s = "True"
-            if line.startswith("%"):
-                set3s = "False"
-            elif line.startswith("^"):
-                set3s = "True"
-def read_nmf():
-    print()
+
 def values():
-    global set1s
-    global set2s
-    global set3s, quick_start, quick_shutdown
-    global prevuse, rwscrptf# Declare global variables
+    global prevuse, rwscrptf  # Declare global variables
     help_input = input("If you want help, type !help or !commands. If not, press Enter.\n")
     if help_input == "!help":
         print("Facing Issues With The App Contact me at https://github.com/RealDeop/NPST/issues/new\n")
@@ -71,75 +41,25 @@ def values():
     elif help_input == "!commands":
         print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #set (sets the starting number to a specific value).\n #stop (stops the code and saves the changes) \n #end (is the same as #, meaning it adds to the starting number by 1). \n #rest (resets the starting number to 1) ")
         eots1()
-    help_inputs = help_input
-    print(help_inputs)
-    if help_inputs == "!settings":
-        print("To Change A setting first select a setting number")
-        set1 = print("| 1 | Quick Shut Down | "+set1s+" |" )
-        set2 = print("| 2 | Quick Start | "+set2s+" |" )
-        set3 = print("| 3 | Feedback | "+set3s+" |" )
-        setnum = str(input())
-        if setnum == "1":
-            print("You Have Choosen setting"+setnum+"it is set To "+set1s+" Change It ? If Yes Type true or false")
-            tf = input()
-            quick_shutdown = tf 
-            set1s = quick_shutdown
+    #elif help_input == "!settings":
+    #    print("To Change A setting first select a setting number")
+    #    set1 = print("| 1 | Quick Shut Down | "+set1s+" |" )
+    #    set2 = print("| 2 | Quick Start | "+set2s+" |" )
+    #   set3 = print("| 3 | Feedback | "+set3s+" |" )
+    #    setnum = input()
+    #    if setnum == 1:
+    #        print("You Have Choosen setting"+setnum+"it is set To "+set1s+" Change It ? If Yes Type True or False")
+    #        tf = input()
+    #        set1s = tf
+     #   if setnum == 2:
+      #      print("You Have Choosen setting"+setnum+"it is set To "+set2s+" Change It ? If Yes Type True or False")
+       #     tf2 = input()
+        #    set2s = tf2
+       # if setnum == 3:
+        #    print("You Have Choosen setting"+setsnum+"it is set To "+set3s+" Change It ? If Yes Type True or False")
+         #   tf3 = input()
+          #  set3s = tf3
             
-            if set1s.lower() == "true":
-                set1s = "@"
-            elif set1s.lower() == "false":
-                set1s = "!"
-            if set2s.lower() == "true":
-                set2s = "$"
-            elif set2s.lower() ==  "false":
-                set2s = "#"
-            if set3s.lower() == "true":
-                set3s = "^"
-            elif set3s.lower() == "false":
-                set3s = "%"
-            nmf = "setting-1s \n"+set1s+"\n\nsetting-2s \n"+set2s+"\n\nsetting-3s \n"+set3s
-            with open("settings.nmf", "w") as file:
-                file.write(nmf)
-        elif setnum == "2":
-            print("You Have Choosen setting"+setnum+"it is set To "+set2s+" Change It ? If Yes Type true or false")
-            tf2 = input()
-            quick_start = tf2
-            set2s = quick_start
-            if set1s.lower() == "true":
-                set1s = "@"
-            elif set1s.lower() == "false":
-                set1s = "!"
-            if set2s.lower() == "true":
-                set2s = "$"
-            elif set2s.lower() ==  "false":
-                set2s = "#"
-            if set3s.lower() == "true":
-                set3s = "^"
-            elif set3s.lower() == "false":
-                set3s = "%"
-            nmf = "setting-1s "+set1s+"\n\nsetting-2s "+set2s+"\n\nsetting-3s "+set3s
-            with open("settings.nmf", "w") as file:
-                file.write(nmf)
-        elif setnum == "3":
-            print("You Have Choosen setting"+setsnum+"it is set To "+set3s+" Change It ? If Yes Type true or false")
-            tf3 = input()
-            feedback = tf3
-            set3s = feedback
-            if set1s.lower() == "true":
-                set1s = "@"
-            elif set1s.lower() == "false":
-                set1s = "!"
-            if set2s.lower() == "true":
-                set2s = "$"
-            elif set2s.lower() ==  "false":
-                set2s = "#"
-            if set3s.lower() == "true":
-                set3s = "^"
-            elif set3s.lower() == "false":
-                set3s = "%"
-            nmf = "setting-1s "+set1s+"\n\nsetting-2s "+set2s+"\n\nsetting-3s "+set3s
-            with open("settings.nmf", "w") as file:
-                file.write(nmf)
             
     # Define the filename you want to search for
     filename = 'script.txt'
@@ -170,7 +90,7 @@ def filenotfound404():
         if contdir.lower() == "y":
             rwscrptf = True  # The user is now using raw script file mode, which means they typed in the script contents 
         else:
-            prevuse = True  # Inform this function that.user used it previously wrong and is now in need to correct it to use nspt 
+            prevuse = True  # Inform the file not found 404 function that the user used it previously wrong and is now in need to correct it to use nspt 
             filenotfound404()  # Recall the file not found 404 function
 
 def hasum(script):
@@ -178,7 +98,7 @@ def hasum(script):
     result = ""
     repeat_block = []
     repeating = False
-
+    
     for line in lines:
         if line.startswith("#") or line.strip() == "#end" or line.strip() == "#rest" or line.strip() == "#stop":
             try:
@@ -231,8 +151,6 @@ def replace_numbers(script):
     start_number = 1
     result = ""
     stop_reached = False
-    with open('script.txt', 'r') as file:
-        script = file.read()
     variables = {}  # Dictionary to store variables
     for line in script.splitlines():
         if line.strip() == "#" or line.strip() == "#end":
@@ -272,6 +190,7 @@ def replace_numbers(script):
                 var_command = line.split()
                 if len(var_command) == 2:  # Retrieving the variable
                     var_name = var_command[1]
+                    
                     if var_name in variables:
                         result += str(variables[var_name]) + "\n"
                     else:
@@ -282,6 +201,9 @@ def replace_numbers(script):
                     variables[var_name] = var_value
                 else:
                     print("Invalid /var command.")
+                if var_value == "--p":
+                    varp = int(var_value + start_number)
+                    result += str(verp) + "\n"
             except IndexError:
                 print("Invalid /var command.")
         else:
@@ -372,23 +294,24 @@ def replace_numbers(script):
 
 def main():
     if __name__ == "__main__":
-        read_nmf()
+
         values()  # Call the help function
+        if rwscrptf == False:
+            with open("script.txt", "r") as file:
+                    script = file.read()
         if rwscrptf == True:
             script = err_f_404
-        else:
-            script = ""
         script_with_hasum = hasum(script)
         replaced_script, stop_reached = replace_numbers(script_with_hasum)
 
         with open("result.txt", "w") as file:
             file.write(replaced_script)
-       # with open("result.spt", "w") as file:
-       #     file.write(replaced_script)
+
         print("Result saved in 'result.txt' file.")
-        #if set1s == "!":
-        
         eots1()
+        if stop_reached:
+            print("Stop action encountered. Stopping the script.")
+            exit(0)
         #else:
         #    exit()
         if stop_reached:
@@ -449,4 +372,3 @@ if set2s == "#":
 main()
 #elif set2s == "$":
  #   main()
-
