@@ -108,7 +108,9 @@ in line commands:
      
      /repeat -s 
    just specfies the place where /repeat may start repeating 
-    
+
+    /check
+   Get A Checksum out of letters (letter meanany anything like symbols and numbers and letters)
 needed lib:
 
         pip install subprocess
