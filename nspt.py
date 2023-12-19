@@ -41,25 +41,6 @@ def values():
     elif help_input == "!commands":
         print("Here are all the commands and how to use them.\n #10 (or any number you want can be used to copy the line before the # and repeat using the number you put) \n #start (is used to change the start number to anything you want).\n #set (sets the starting number to a specific value).\n #stop (stops the code and saves the changes) \n #end (is the same as #, meaning it adds to the starting number by 1). \n #rest (resets the starting number to 1) ")
         eots1()
-    #elif help_input == "!settings":
-    #    print("To Change A setting first select a setting number")
-    #    set1 = print("| 1 | Quick Shut Down | "+set1s+" |" )
-    #    set2 = print("| 2 | Quick Start | "+set2s+" |" )
-    #   set3 = print("| 3 | Feedback | "+set3s+" |" )
-    #    setnum = input()
-    #    if setnum == 1:
-    #        print("You Have Choosen setting"+setnum+"it is set To "+set1s+" Change It ? If Yes Type True or False")
-    #        tf = input()
-    #        set1s = tf
-     #   if setnum == 2:
-      #      print("You Have Choosen setting"+setnum+"it is set To "+set2s+" Change It ? If Yes Type True or False")
-       #     tf2 = input()
-        #    set2s = tf2
-       # if setnum == 3:
-        #    print("You Have Choosen setting"+setsnum+"it is set To "+set3s+" Change It ? If Yes Type True or False")
-         #   tf3 = input()
-          #  set3s = tf3
-            
             
     # Define the filename you want to search for
     filename = 'script.txt'
@@ -147,11 +128,26 @@ def hasum(script):
     return result
     pass
 
+def calculate_checksum(word):
+    # Initialize checksum to 0
+    checksum = 0
+    
+    # Iterate through each character in the word
+    for char in word:
+        # Add the ASCII value of the character to the checksum
+        checksum += ord(char)
+    
+    # Convert the checksum to a string of numbers
+    checksum_str = str(checksum)
+    
+    return checksum_str
+
 def replace_numbers(script):
     start_number = 1
     result = ""
     stop_reached = False
     variables = {}  # Dictionary to store variables
+    find_words = [] #set a 1d  table that finds words
     for line in script.splitlines():
         if line.strip() == "#" or line.strip() == "#end":
             start_number += 1
@@ -207,6 +203,12 @@ def replace_numbers(script):
             except IndexError:
                 print("Invalid /var command.")
         else:
+            if "/check" in line:
+                check_index = line.find("/check")
+                check = str(line[check_index + 6:].split()[0])
+                checksum = calculate_checksum(check)
+                line = line.replace("/check " + str(check), str(checksum))
+            
             while "/int" in line:
                 int_index = line.find("/int")
                 if int_index != -1:
@@ -290,6 +292,11 @@ def replace_numbers(script):
             result += line + "\n"
             start_number += 1
 
+            
+                                    
+                                        
+                                                    
+
     return result, stop_reached
 
 def main():
@@ -319,8 +326,8 @@ def main():
             exit(0)
 def eots1():
     print("nspt-terminal tb-0")
-    eots = input("Quit ? y | n  User Action:| ") # eots means end of terminal script watiting for user guidince
-    if eots.lower() == "y":
+    eots = input("Restart ? y | n  User Action:| ") # eots means end of terminal script watiting for user guidince
+    if eots.lower() == "n":
         print("program shutting down in \n 3")
         wait(1)
         print("program shutting down in \n 2")
@@ -328,7 +335,7 @@ def eots1():
         print("program shutting down in \n 1")
         wait(1)
         exit(0)
-    elif eots.lower() == "n":
+    elif eots.lower() == "y":
         eots2 = input("Restart, Just Restart|j| open result.txt|o| open script.txt|s|")
         print("program restarting down in \n 1")
         wait(1)
